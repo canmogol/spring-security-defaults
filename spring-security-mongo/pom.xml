@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.fererlab</groupId>
+	<artifactId>spring-security-mongo</artifactId>
+	<version>0.0.1</version>
+
+	<name>spring-security-mongo</name>
+	<description>Spring Security with mongo backend and default setup</description>
+
+
+	<properties>
+		<!-- encodings and java versions-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.encoding>UTF-8</project.encoding>
+		<project.source.version>1.8</project.source.version>
+		<project.target.version>1.8</project.target.version>
+		<java.version>1.8</java.version>
+		<compiler.version>1.8</compiler.version>
+
+		<!-- plugin versions -->
+		<version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
+
+		<!-- spring security -->
+		<version.spring-security>4.2.3.RELEASE</version.spring-security>
+		<version.spring-web>4.3.9.RELEASE</version.spring-web>
+		<version.spring-data-mongodb>1.10.4.RELEASE</version.spring-data-mongodb>
+		<version.servlet-api>2.5</version.servlet-api>
+
+	</properties>
+
+	<build>
+		<!-- PLUGINS -->
+		<plugins>
+			<!-- COMPILER PLUGIN -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.maven-compiler-plugin}</version>
+				<configuration>
+					<compilerVersion>1.8</compilerVersion>
+					<source>${project.source.version}</source>
+					<target>${project.target.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!-- ********** -->
+		<!-- PACK WITH  -->
+		<!-- ********** -->
+
+
+		<!-- ********** -->
+		<!--  PROVIDED  -->
+		<!-- ********** -->
+
+		<!-- spring web -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${version.spring-web}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- spring security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${version.spring-security}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- spring data -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${version.spring-data-mongodb}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${version.servlet-api}</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!-- **** -->
+		<!-- TEST -->
+		<!-- **** -->
+
+	</dependencies>
+
+</project>
