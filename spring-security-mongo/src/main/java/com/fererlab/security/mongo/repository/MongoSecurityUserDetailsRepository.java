@@ -7,9 +7,6 @@ import org.springframework.data.mongodb.repository.Query;
 
 public interface MongoSecurityUserDetailsRepository extends MongoRepository<MongoSecurityUserRoles, String> {
 
-    @Query("{'username':?0}")
-    MongoSecurityUserRoles findByUsername(String username);
-
     @Query("{$and:[{'username':?0},{'password':?1}]}")
     MongoSecurityUserRoles findByUsernameAndPassword(String username, String password);
 

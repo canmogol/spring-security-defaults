@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -36,21 +37,18 @@ public class MongoSecurityAuthenticationProvider implements AuthenticationProvid
         if (user == null) {
             throw new UsernameNotFoundException(authentication.getName());
         }
-        // create authentication object and set its authentication to true only if the user is active
-        return new UsernamePasswordAuthenticationToken(
-            user.getUsername(),
-            user.getPassword(),
-            user.getRoles()
-                .stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList())
-        );
+        // create authentication object and set its authentication to true by passing authorities
+        List<SimpleGrantedAuthority> authorities = user.getRoles()
+            .stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+        // return authentication token
+        return new UsernamePasswordAuthenticationToken(username, password, authorities);
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        boolean assignableFrom = AbstractAuthenticationToken.class.isAssignableFrom(authentication);
-        return assignableFrom;
+        return AbstractAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
 }
