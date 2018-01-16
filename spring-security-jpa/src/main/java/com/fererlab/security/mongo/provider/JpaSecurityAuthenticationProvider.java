@@ -1,5 +1,7 @@
-package com.fererlab.security.generic.provider;
+package com.fererlab.security.mongo.provider;
 
+import com.fererlab.security.mongo.entity.JpaSecurityUser;
+import com.fererlab.security.mongo.repository.JpaSecurityUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -13,15 +15,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-@Qualifier("GenericSecurityAuthenticationProvider")
-public class GenericSecurityAuthenticationProvider implements AuthenticationProvider {
+@Qualifier("JpaSecurityAuthenticationProvider")
+public class JpaSecurityAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired(required = false)
-    AuthenticationDelegate authenticationDelegate;
+    @Autowired
+    JpaSecurityUserRepository repository;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -32,22 +33,17 @@ public class GenericSecurityAuthenticationProvider implements AuthenticationProv
         // check if the user exists
         String username = String.valueOf(authentication.getPrincipal());
         String password = String.valueOf(authentication.getCredentials());
-        // check if there is any authentication delegate exist
-        if (authenticationDelegate == null) {
-            throw new NullPointerException("There is no AuthenticationDelegate instance found, implement AuthenticationDelegate interface and set it as a spring bean.");
-        }
-        // create authentication object and set its authentication to true by passing authorities
-        Set<String> authorities = authenticationDelegate.findAuthorities(username, password);
-        if (authorities == null) {
+        JpaSecurityUser user = repository.findByUsernameAndPassword(username, password);
+        if (user == null) {
             throw new UsernameNotFoundException(authentication.getName());
         }
-        // create granted authorities
-        List<SimpleGrantedAuthority> grantedAuthorities = authorities
+        // create authentication object and set its authentication to true by passing authorities
+        List<SimpleGrantedAuthority> authorities = user.getRoles()
             .stream()
-            .map(SimpleGrantedAuthority::new)
+            .map(role -> new SimpleGrantedAuthority(role.getName()))
             .collect(Collectors.toList());
         // return authentication token
-        return new UsernamePasswordAuthenticationToken(username, password, grantedAuthorities);
+        return new UsernamePasswordAuthenticationToken(username, password, authorities);
     }
 
     @Override

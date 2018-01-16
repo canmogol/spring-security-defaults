@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+
+	<groupId>com.fererlab</groupId>
+	<artifactId>spring-security-example-jpa</artifactId>
+	<version>0.0.1</version>
+
+	<name>spring-security-example-jpa</name>
+	<description>Spring Security with jpa example app</description>
+
+	<properties>
+		<!-- encodings and java versions-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.encoding>UTF-8</project.encoding>
+		<project.source.version>1.8</project.source.version>
+		<project.target.version>1.8</project.target.version>
+		<java.version>1.8</java.version>
+		<compiler.version>1.8</compiler.version>
+
+		<!-- plugin versions -->
+		<version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
+
+	</properties>
+
+
+	<build>
+		<!-- PLUGINS -->
+		<plugins>
+			<!-- COMPILER PLUGIN -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.maven-compiler-plugin}</version>
+				<configuration>
+					<compilerVersion>1.8</compilerVersion>
+					<source>${project.source.version}</source>
+					<target>${project.target.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!-- ********** -->
+		<!-- PACK WITH  -->
+		<!-- ********** -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!-- mongo security default setup -->
+		<dependency>
+			<groupId>com.fererlab</groupId>
+			<artifactId>spring-security-jpa</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+
+		<!-- ********** -->
+		<!--  PROVIDED  -->
+		<!-- ********** -->
+
+
+		<!-- **** -->
+		<!-- TEST -->
+		<!-- **** -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+	</dependencies>
+
+
+</project>
