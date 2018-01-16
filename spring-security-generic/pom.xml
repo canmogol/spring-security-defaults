@@ -4,21 +4,13 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-
-
 	<groupId>com.fererlab</groupId>
-	<artifactId>spring-security-example-mongo</artifactId>
+	<artifactId>spring-security-generic</artifactId>
 	<version>0.0.1</version>
 
-	<name>spring-security-example-mongo</name>
-	<description>Spring Security with mongo example app</description>
+	<name>spring-security-generic</name>
+	<description>Spring Security with generic backend and delegate</description>
+
 
 	<properties>
 		<!-- encodings and java versions-->
@@ -33,8 +25,11 @@
 		<!-- plugin versions -->
 		<version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
 
-	</properties>
+		<!-- spring security -->
+		<version.spring-security>4.2.3.RELEASE</version.spring-security>
+		<version.spring-web>4.3.13.RELEASE</version.spring-web>
 
+	</properties>
 
 	<build>
 		<!-- PLUGINS -->
@@ -58,48 +53,24 @@
 		<!-- ********** -->
 		<!-- PACK WITH  -->
 		<!-- ********** -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-
-		<!-- mongo security default setup -->
-		<dependency>
-			<groupId>com.fererlab</groupId>
-			<artifactId>spring-security-mongo</artifactId>
-			<version>0.0.1</version>
-		</dependency>
 
 
 		<!-- ********** -->
 		<!--  PROVIDED  -->
 		<!-- ********** -->
 
+		<!-- spring security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${version.spring-security}</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- **** -->
 		<!-- TEST -->
 		<!-- **** -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 
 	</dependencies>
-
 
 </project>

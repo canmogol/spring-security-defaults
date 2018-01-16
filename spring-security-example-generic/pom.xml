@@ -14,11 +14,11 @@
 
 
 	<groupId>com.fererlab</groupId>
-	<artifactId>spring-security-example-mongo</artifactId>
+	<artifactId>spring-security-example-generic</artifactId>
 	<version>0.0.1</version>
 
-	<name>spring-security-example-mongo</name>
-	<description>Spring Security with mongo example app</description>
+	<name>spring-security-example-generic</name>
+	<description>Spring Security with generic example app</description>
 
 	<properties>
 		<!-- encodings and java versions-->
@@ -32,6 +32,9 @@
 
 		<!-- plugin versions -->
 		<version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
+
+		<!-- spring security -->
+		<version.spring-security>4.2.3.RELEASE</version.spring-security>
 
 	</properties>
 
@@ -66,18 +69,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
 
-		<!-- mongo security default setup -->
+		<!-- generic security default setup -->
 		<dependency>
 			<groupId>com.fererlab</groupId>
-			<artifactId>spring-security-mongo</artifactId>
+			<artifactId>spring-security-generic</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-
 
 		<!-- ********** -->
 		<!--  PROVIDED  -->

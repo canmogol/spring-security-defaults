@@ -27,9 +27,7 @@
 
 		<!-- spring security -->
 		<version.spring-security>4.2.3.RELEASE</version.spring-security>
-		<version.spring-web>4.3.9.RELEASE</version.spring-web>
 		<version.spring-data-mongodb>1.10.4.RELEASE</version.spring-data-mongodb>
-		<version.servlet-api>2.5</version.servlet-api>
 
 	</properties>
 
@@ -61,13 +59,6 @@
 		<!--  PROVIDED  -->
 		<!-- ********** -->
 
-		<!-- spring web -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${version.spring-web}</version>
-			<scope>provided</scope>
-		</dependency>
 		<!-- spring security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -83,13 +74,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- servlet-api -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${version.servlet-api}</version>
-			<scope>provided</scope>
-		</dependency>
 
 
 		<!-- **** -->
