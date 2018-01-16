@@ -22,11 +22,12 @@ public class NameController {
     }};
 
     @GetMapping
+    @PreAuthorize("hasRole('NAME_QUERY')")
     public List<String> getAllNames() {
         return names;
     }
 
-    @PreAuthorize("hasRole('NAME_QUERY')")
+    @PreAuthorize("permitAll")
     @GetMapping("/{index}")
     public String getName(@PathVariable Integer index) {
         return names.get(index);

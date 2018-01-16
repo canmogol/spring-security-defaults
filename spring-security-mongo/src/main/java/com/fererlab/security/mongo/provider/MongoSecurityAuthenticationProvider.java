@@ -1,17 +1,23 @@
 package com.fererlab.security.mongo.provider;
 
-import com.fererlab.security.mongo.authentication.MongoSecurityAuthentication;
 import com.fererlab.security.mongo.entity.MongoSecurityUserRoles;
 import com.fererlab.security.mongo.repository.MongoSecurityUserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
+@Qualifier("MongoSecurityAuthenticationProvider")
 public class MongoSecurityAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
@@ -21,24 +27,30 @@ public class MongoSecurityAuthenticationProvider implements AuthenticationProvid
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // authentication and its name cannot be null
         if (authentication == null || authentication.getName() == null) {
-            throw new BadCredentialsException("authentication and/or authentication name cannot be null");
+            throw new BadCredentialsException("authentication and/or name cannot be null");
         }
         // check if the user exists
-        MongoSecurityUserRoles userRoles = repository.findByUsername(authentication.getName());
-        if (userRoles == null) {
+        String username = String.valueOf(authentication.getPrincipal());
+        String password = String.valueOf(authentication.getCredentials());
+        MongoSecurityUserRoles user = repository.findByUsernameAndPassword(username, password);
+        if (user == null) {
             throw new UsernameNotFoundException(authentication.getName());
         }
         // create authentication object and set its authentication to true only if the user is active
-        MongoSecurityAuthentication auth = new MongoSecurityAuthentication(userRoles);
-        if (userRoles.isEnabled() && userRoles.isAccountNonExpired() && userRoles.isAccountNonLocked() && userRoles.isCredentialsNonExpired()) {
-            auth.setAuthenticated(true);
-        }
-        return auth;
+        return new UsernamePasswordAuthenticationToken(
+            user.getUsername(),
+            user.getPassword(),
+            user.getRoles()
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return MongoSecurityAuthentication.class.isAssignableFrom(authentication);
+        boolean assignableFrom = AbstractAuthenticationToken.class.isAssignableFrom(authentication);
+        return assignableFrom;
     }
 
 }
