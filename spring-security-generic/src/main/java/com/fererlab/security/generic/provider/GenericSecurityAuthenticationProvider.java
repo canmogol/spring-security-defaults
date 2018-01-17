@@ -32,7 +32,7 @@ public class GenericSecurityAuthenticationProvider implements AuthenticationProv
         // check if the user exists
         String username = String.valueOf(authentication.getPrincipal());
         String password = String.valueOf(authentication.getCredentials());
-        // check if there is any authentication delegate exist
+        // check if there the delegate exists
         if (authenticationDelegate == null) {
             throw new NullPointerException("There is no AuthenticationDelegate instance found, implement AuthenticationDelegate interface and set it as a spring bean.");
         }
